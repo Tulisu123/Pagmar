@@ -63,6 +63,7 @@ function App() {
             autoPlay
             muted
             onEnded={handleVideoEnd}
+            playsInline //for mobile use 
           />
         </div>
       )}
