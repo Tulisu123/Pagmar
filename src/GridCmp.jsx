@@ -10,6 +10,8 @@ export default function GridCmp({ data = [], onItemClick }) {
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               muted
               autoPlay
+              playsInline //for mobile use 
+              preload="auto"
               loop
             />
           </div>

@@ -64,6 +64,7 @@ function App() {
             muted
             onEnded={handleVideoEnd}
             playsInline //for mobile use 
+            preload='auto'
           />
         </div>
       )}
