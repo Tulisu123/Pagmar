@@ -1,4 +1,4 @@
-const API_KEY = 'FmS8GjuU942mjxdJSQrZBmnoSpFV0U98h2hoyCRtt1xSXoy8iFQRUOMH';
+const API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 const NUMBER_OF_VIDEOS = 25;
 
 export const videosService = {
