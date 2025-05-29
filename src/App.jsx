@@ -46,7 +46,11 @@ function App() {
     setShowGrid(false)
   }
 
-  if (!videos.length) return <div>Loading...</div>
+  if (!videos.length) return (
+    <div style={{ color: 'white' }}>
+      problem loading the video, api failed...
+    </div>
+  );
 
   return (
     <>
@@ -54,18 +58,18 @@ function App() {
         <GridCmp data={videos} onItemClick={handleGridItemClick} />
       ) : (
         <div onClick={() => setShowGrid(true)} className="wrapper">
-          <video
-            className="fullscreen-video"
-            ref={videoRef}
-            src={
-              videos[currentIdx].video_files.find(f => f.file_type === 'video/mp4')?.link || ''
-            }
-            autoPlay
-            muted
-            onEnded={handleVideoEnd}
-            playsInline //for mobile use 
-            preload='auto'
-          />
+        <video
+          className="fullscreen-video"
+          ref={videoRef}
+          src={
+            videos[currentIdx].video_files.find(f => f.file_type === 'video/mp4')?.link || ''
+          }
+          autoPlay
+          muted
+          onEnded={handleVideoEnd}
+          playsInline
+          preload="auto"
+        ></video>
         </div>
       )}
     </>
