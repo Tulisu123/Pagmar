@@ -14,6 +14,7 @@ function App() {
     async function fetchData() {
       try {
         const vids = await videosService.getVideos()
+        console.log('PEXELS KEY:', import.meta.env.VITE_PEXELS_API_KEY);
         console.log('Fetched videos:', vids)
         setVideos(vids)
 
