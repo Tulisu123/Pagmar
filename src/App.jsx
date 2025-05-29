@@ -13,9 +13,8 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log('PEXELS KEY:', import.meta.env.VITE_PEXELS_API_KEY);
         const vids = await videosService.getVideos()
-        console.log('PEXELS KEY:', import.meta.env.VITE_PEXELS_API_KEY);
+        console.log(meta.env.VITE_PEXELS_API_KEY)
         console.log('Fetched videos:', vids)
         setVideos(vids)
 
@@ -50,7 +49,7 @@ function App() {
 
   if (!videos.length) return (
     <div style={{ color: 'white' }}>
-      problem loading the video, api failed...
+      loading video
     </div>
   );
 
