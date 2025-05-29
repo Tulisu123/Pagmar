@@ -6,7 +6,7 @@ export const videosService = {
 }
 
 async function getVideos() {
-  const res = await fetch(`https://api.pexels.com/videos/search?query=nature&per_page=${NUMBER_OF_VIDEOS}&size=medium&orientation=landscape`, {
+  const res = await fetch(`https://api.pexels.com/videos/search?query=nature&per_page=${NUMBER_OF_VIDEOS}&size=large&orientation=landscape`, {
     headers: {
       Authorization: API_KEY
     }
