@@ -7,6 +7,7 @@ export const videosService = {
 
 async function getVideos() {
     const res = await fetch('/.netlify/functions/get-videos');
+    console.log(res)
     const data = await res.json();
     return data;
 }

@@ -13,6 +13,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       try {
+        console.log('PEXELS KEY:', import.meta.env.VITE_PEXELS_API_KEY);
         const vids = await videosService.getVideos()
         console.log('PEXELS KEY:', import.meta.env.VITE_PEXELS_API_KEY);
         console.log('Fetched videos:', vids)
