@@ -52,3 +52,83 @@ body, html {
   margin: auto;
   background: black;
 }
+
+
+
+/*fonts*/
+@font-face {
+  font-family: 'regular-narkis';
+  src: url('/assets/fonts/regular-narkis.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'semibold-narkis';
+  src: url('/assets/fonts/semibold-narkis.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@media (max-width: 768px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    direction: rtl;
+    color: black;
+    background: black;
+  }
+
+  .header-container{
+    padding: var(--my-gap);
+  }
+
+  .topheader-title, .nispah{
+    font-family: 'semibold-narkis';
+  }
+
+  .subline {
+    font-family: 'regular-narkis';
+  }
+
+  .topHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .video-container {
+    column-count: 4; /* 4 עמודות קבועות */
+    column-gap: var(--my-gap); /* רווח בין עמודות */
+    padding-left: var(--my-gap);
+    padding-right: var(--my-gap)  ;
+    height: calc(100vh - 75px - 20px); /* 75px לכותרת, 20px מרווח תחתון */
+    overflow: hidden;
+  }
+
+  .grid-item {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    break-inside: avoid;
+    overflow: hidden;
+    margin-bottom: var(--my-gap);
+  }
+
+  .grid-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  p {
+    color: white;
+  }
+}
+
+
+
+:root {
+  --my-gap:12px;
+}
