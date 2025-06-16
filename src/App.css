@@ -135,7 +135,7 @@ body, html {
 
   .nispah {
     position: absolute;
-    left: calc(50% + var(--my-gap)); /* סוף עמודה שנייה מתוך 4 */
+    left: calc(25% + var(--my-gap)); /* סוף עמודה שנייה מתוך 4 */
     font-family: 'Narkis-Semibold', Arial, sans-serif;
     font-size: 16px;
     margin: 0;
