@@ -80,7 +80,42 @@ body, html {
     color: black;
     background: black;
   }
+  
+  .user-display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* or center */
+    gap: 16px;
+    width: 100%;
+    /* Set a max height or fixed height for the container */
+    max-height: 850px; /* for example */
+    padding-left: var(--my-gap, 24px);
+    padding-right: var(--my-gap, 24px);
+    padding-bottom: 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
 
+  .user-display-container > div {
+    width: 100%;
+    padding-left: var(--my-gap);
+    padding-right: var(--my-gap);
+    height: 40%; /* or any height you want */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .user-display-container > div > video {
+    width: 100%;
+    height: 100%;
+    padding-left: var(--my-gap);
+    padding-right: var(--my-gap);
+    object-fit: cover;
+    display: block;
+  }
+  
   .header-container{
     padding: var(--my-gap);
   }
@@ -97,6 +132,17 @@ body, html {
     display: flex;
     justify-content: space-between;
     width: 50%;
+  }
+
+  .user-details{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  } 
+
+  .user-details p {
+    font-family: 'regular-narkis';
+    color: white;
   }
 
   .video-container {

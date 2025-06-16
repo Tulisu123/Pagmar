@@ -55,24 +55,52 @@ function App() {
 
   return (
     <>
-      {showGrid ? (
-        <GridCmp data={videos} onItemClick={handleGridItemClick} />
-      ) : (
-        <div onClick={() => setShowGrid(true)} className="wrapper">
-        <video
-          className="fullscreen-video"
-          ref={videoRef}
-          src={
-            videos[currentIdx].video_files.find(f => f.file_type === 'video/mp4')?.link || ''
-          }
-          autoPlay
-          muted
-          onEnded={handleVideoEnd}
-          playsInline
-          preload="auto"
-        ></video>
+      <div className="header-container">
+        <div className="topHeader">
+          <p className="topheader-title">קריאה בעידן הדיגיטלי</p>   
+          <p className="nispah">נספח: 3</p>
         </div>
-      )}
+        <div className="bottomHeader">
+          <p className="subline">הפרטיות של הקריאה נשמרת חלקית אפילו כשאר היא מבוצעת בפני אחרים</p>
+        </div>
+        {!showGrid && (
+          <div className="user-details">
+            <p className="user-name">שם משתמש: שי</p>
+            <p className="user-title">גיל: 27</p>
+            <p className="user-title">זמן קריאה: 5.34 דק׳</p>
+          </div>
+        )}
+      </div>
+      {showGrid ? (
+          <GridCmp data={videos} onItemClick={handleGridItemClick} />
+        ) : (
+          <div onClick={() => setShowGrid(true)} className="user-display-container" style={{ width: '100vw', height: 'calc(100vh - 75px)', display: 'flex', flexDirection: 'column', padding: 0, margin: 0 }}>
+            <div className='video-div'>
+              <video
+                ref={videoRef}
+                src={
+                  videos[currentIdx]?.video_files.find(f => f.file_type === 'video/mp4')?.link || ''
+                }
+                autoPlay
+                muted
+                onEnded={handleVideoEnd}
+                playsInline
+                preload="auto"
+              ></video>
+            </div>
+            <div className='video-div'>
+              <video
+                src={
+                  videos[(currentIdx + 1) % videos.length]?.video_files.find(f => f.file_type === 'video/mp4')?.link || ''
+                }
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+              ></video>
+            </div>
+          </div>
+        )}
     </>
   )
 }
