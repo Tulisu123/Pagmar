@@ -4,11 +4,9 @@ body, html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
-  background-color: black;
   overflow: hidden;
 }
-
+ד
 .wrapper {
   display: flex;
   justify-content: center;
@@ -50,23 +48,21 @@ body, html {
   object-fit: contain;
   display: block;
   margin: auto;
-  background: black;
 }
 
 
 
 /*fonts*/
 @font-face {
-  font-family: 'regular-narkis';
-  src: url('/assets/fonts/regular-narkis.otf') format('opentype');
+  font-family: 'NarkissTam-Regular';
+  src: url('/fonts/NarkissTam-Regular-TRIAL.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'semibold-narkis';
-  src: url('/assets/fonts/semibold-narkis.otf') format('opentype');
-  font-weight: normal;
+  font-family: 'Narkis-Semibold';
+  src: url('/fonts/NarkissTam-Semibold-TRIAL.otf') format('opentype');
   font-style: normal;
 }
 
@@ -78,7 +74,6 @@ body, html {
     overflow: hidden;
     direction: rtl;
     color: black;
-    background: black;
   }
   
   .user-display-container {
@@ -86,7 +81,7 @@ body, html {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; /* or center */
-    gap: 16px;
+    gap: 16px; 
     width: 100%;
     /* Set a max height or fixed height for the container */
     max-height: 850px; /* for example */
@@ -116,22 +111,47 @@ body, html {
     display: block;
   }
   
+
+
+  /*header*/
   .header-container{
-    padding: var(--my-gap);
+    padding-top: var(--my-gap);
+    padding-right: var(--my-gap);
   }
 
-  .topheader-title, .nispah{
-    font-family: 'semibold-narkis';
+  .topHeader {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 24px;
   }
+
+  .topheader-title {
+    font-family: 'Narkis-Semibold', Arial, sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nispah {
+    position: absolute;
+    left: calc(50% + var(--my-gap)); /* סוף עמודה שנייה מתוך 4 */
+    font-family: 'Narkis-Semibold', Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
 
   .subline {
-    font-family: 'regular-narkis';
+    font-size: 14px;
+    margin-top: 12px;
+    font-family: 'NarkissTam-Regular', Arial, sans-serif;
   }
 
   .topHeader {
     display: flex;
-    justify-content: space-between;
-    width: 50%;
+    gap: 110px;
   }
 
   .user-details{
@@ -141,8 +161,7 @@ body, html {
   } 
 
   .user-details p {
-    font-family: 'regular-narkis';
-    color: white;
+    font-family: 'NarkissTam-Regular', Arial, sans-serif;
   }
 
   .video-container {
@@ -167,14 +186,9 @@ body, html {
     height: 100%;
     object-fit: cover;
   }
-
-  p {
-    color: white;
-  }
 }
 
 
-
 :root {
-  --my-gap:12px;
+  --my-gap:10px;
 }
