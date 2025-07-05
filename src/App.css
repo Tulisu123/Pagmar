@@ -73,6 +73,9 @@ body, html {
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
+
+
+
 .orientation-warning {
   position: fixed;
   top: 0;
@@ -87,13 +90,12 @@ body, html {
   text-align: center;
   font-family: 'Roboto', sans-serif;
   font-size: 1.5rem;
-  padding: 2rem;
   z-index: 10000;
   box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
 }
 
 .orientation-warning p {
-  max-width: 90%;
+  max-width: 80%;
   line-height: 1.6;
   font-weight: 500;
   background: rgba(255,255,255,0.8);
