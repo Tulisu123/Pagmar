@@ -75,6 +75,7 @@ function App() {
   )
 
   const videoSrc = videos[currentIdx]?.url
+  const nextVideoSrc = videos[(currentIdx + 1) % videos.length]?.url
 
   return (
     <>
@@ -98,6 +99,14 @@ function App() {
           playsInline
           preload="auto"
           className="fullscreen-video"
+        />
+
+        {/* Preload next video invisibly */}
+        <video
+          src={nextVideoSrc}
+          preload="auto"
+          muted
+          style={{ display: 'none' }}
         />
 
         <button className="nav-btn left" onClick={handlePrev}>←</button>
