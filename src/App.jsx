@@ -44,15 +44,29 @@ function App() {
   }
 
   const handleNext = () => {
+    stopInactiveVideo()
+    const nextIdx = (currentIdx + 1) % videos.length
+    console.log("▶️ Playing next video:", videos[nextIdx]?.url)
     setVideoReady(false)
-    setCurrentIdx((prevIdx) => (prevIdx + 1) % videos.length)
-    setActiveBuffer((prev) => 1 - prev)
+    setCurrentIdx(nextIdx)
+    setActiveBuffer(prev => 1 - prev)
   }
 
   const handlePrev = () => {
+    stopInactiveVideo()
+    const prevIdx = (currentIdx - 1 + videos.length) % videos.length
+    console.log("▶️ Playing previous video:", videos[prevIdx]?.url)
     setVideoReady(false)
-    setCurrentIdx((prevIdx) => (prevIdx - 1 + videos.length) % videos.length)
-    setActiveBuffer((prev) => 1 - prev)
+    setCurrentIdx(prevIdx)
+    setActiveBuffer(prev => 1 - prev)
+  }
+
+  const stopInactiveVideo = () => {
+    const inactiveRef = videoRefs[1 - activeBuffer]
+    if (inactiveRef.current) {
+      inactiveRef.current.pause()
+      inactiveRef.current.currentTime = 0
+    }
   }
 
   const handleTouchStart = (e) => {
@@ -68,11 +82,13 @@ function App() {
     }
   }
 
-  if (!videos.length) return (
-    <div className="loading-spinner">
-      <div className="spinner"></div>
-    </div>
-  )
+  if (!videos.length) {
+    return (
+      <div className="loading-spinner">
+        <div className="spinner"></div>
+      </div>
+    )
+  }
 
   const currentVideo = videos[currentIdx]
   const nextVideo = videos[(currentIdx + 1) % videos.length]
@@ -90,15 +106,9 @@ function App() {
         onTouchEnd={handleTouchEnd}
         style={{ display: isPortrait ? 'none' : 'block' }}
       >
-        {!videoReady && (
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-          </div>
-        )}
-
         {[currentVideo, nextVideo].map((video, i) => (
           <video
-            key={video.id}
+            key={`${video.id}-${i}-${currentIdx}`}
             ref={videoRefs[i]}
             src={video.url}
             autoPlay={i === activeBuffer}
@@ -108,9 +118,7 @@ function App() {
             onCanPlay={() => setVideoReady(true)}
             onEnded={handleVideoEnd}
             className="fullscreen-video"
-            style={{
-              display: i === activeBuffer && videoReady ? 'block' : 'none'
-            }}
+            style={{ display: i === activeBuffer && videoReady ? 'block' : 'none' }}
           />
         ))}
 
