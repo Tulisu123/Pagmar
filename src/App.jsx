@@ -6,7 +6,6 @@ function App() {
   const [videos, setVideos] = useState([])
   const [currentIdx, setCurrentIdx] = useState(0)
   const [isPortrait, setIsPortrait] = useState(false)
-  const [isVideoLoading, setIsVideoLoading] = useState(true)
   const videoRef = useRef(null)
   const touchStartX = useRef(null)
 
@@ -42,14 +41,12 @@ function App() {
     const nextIdx = (currentIdx + 1) % videos.length
     console.log("▶️ Playing next video:", videos[nextIdx]?.url)
     setCurrentIdx(nextIdx)
-    setIsVideoLoading(true)
   }
 
   const handlePrev = () => {
     const prevIdx = (currentIdx - 1 + videos.length) % videos.length
     console.log("▶️ Playing previous video:", videos[prevIdx]?.url)
     setCurrentIdx(prevIdx)
-    setIsVideoLoading(true)
   }
 
   const handleTouchStart = (e) => {
@@ -82,13 +79,6 @@ function App() {
           <p>Please rotate your device to landscape mode for the best experience.</p>
         </div>
       )}
-
-      {isVideoLoading && (
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-        </div>
-      )}
-
       <div
         className="video-container"
         onTouchStart={handleTouchStart}
@@ -103,9 +93,6 @@ function App() {
           muted
           playsInline
           preload="auto"
-          onLoadStart={() => setIsVideoLoading(true)}
-          onCanPlay={() => setIsVideoLoading(false)}
-          onPlaying={() => setIsVideoLoading(false)}
           onEnded={handleNext}
           className="fullscreen-video"
         />
