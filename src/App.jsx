@@ -9,22 +9,7 @@ function App() {
   const videoRef = useRef(null)
   const touchStartX = useRef(null)
 
-
-  useEffect(() => {
-    const setRealVh = () => {
-      const vh = window.innerHeight * 0.01
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
-    }
-    setRealVh()
-    window.addEventListener('resize', setRealVh)
-    window.addEventListener('orientationchange', setRealVh)
-    return () => {
-      window.removeEventListener('resize', setRealVh)
-      window.removeEventListener('orientationchange', setRealVh)
-    }
-  }, [])
-
-
+  
   useEffect(() => {
     async function fetchData() {
       try {
