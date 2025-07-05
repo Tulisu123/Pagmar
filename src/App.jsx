@@ -10,28 +10,28 @@ function App() {
   const touchStartX = useRef(null)
 
   
-    useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
 
-    const resizeVideo = () => {
-      const screenRatio = window.innerWidth / window.innerHeight;
-      const videoRatio = 16 / 9; // או תחלץ מ־video.videoWidth / video.videoHeight
+  useEffect(() => {
+  const triggerScroll = () => {
+    document.body.style.overflow = 'auto'
+    window.scrollTo(0, 1)
+    setTimeout(() => {
+      document.body.style.overflow = 'hidden'
+    }, 100)
+  }
 
-      if (screenRatio > videoRatio) {
-        video.style.width = '100vw';
-        video.style.height = 'auto';
-      } else {
-        video.style.width = 'auto';
-        video.style.height = '100vh';
-      }
-    };
+  // הפעל אוטומטית
+  const timeoutId = setTimeout(triggerScroll, 100)
 
-    resizeVideo();
+  // וגם כאשר המשתמש נוגע במסך
+  window.addEventListener('touchstart', triggerScroll, { once: true })
 
-    window.addEventListener('resize', resizeVideo);
-    return () => window.removeEventListener('resize', resizeVideo);
-  }, []);
+  return () => {
+    clearTimeout(timeoutId)
+    window.removeEventListener('touchstart', triggerScroll)
+  }
+}, [])
+
 
 
   useEffect(() => {
