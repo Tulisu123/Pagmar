@@ -1,194 +1,42 @@
 body, html {
-  width: 100vw;
-  height: 100vh;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
+  background-color: black;
 }
-ד
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.video-container {
+  position: relative;
   width: 100vw;
   height: 100vh;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 4vw;
-  padding: 2vw;
-  width: 90vw;
-  height: auto;
-  aspect-ratio: 16 / 9; /* יחס כללי של הגריד */
-  box-sizing: border-box;
-}
-
-.grid-item {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.grid-item video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .fullscreen-video {
-  width: 90vw;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
-  display: block;
-  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
 }
 
-
-
-/*fonts*/
-@font-face {
-  font-family: 'NarkissTam-Regular';
-  src: url('/fonts/NarkissTam-Regular-TRIAL.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: white;
+  font-size: 3rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 2;
 }
 
-@font-face {
-  font-family: 'Narkis-Semibold';
-  src: url('/fonts/NarkissTam-Semibold-TRIAL.otf') format('opentype');
-  font-style: normal;
+.left {
+  left: 1rem;
 }
 
-
-@media (max-width: 768px) {
-  html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    direction: rtl;
-    color: black;
-  }
-  
-  .user-display-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* or center */
-    gap: 16px; 
-    width: 100%;
-    /* Set a max height or fixed height for the container */
-    max-height: 850px; /* for example */
-    padding-left: var(--my-gap, 24px);
-    padding-right: var(--my-gap, 24px);
-    padding-bottom: 20px;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-
-  .user-display-container > div {
-    width: 100%;
-    padding-left: var(--my-gap);
-    padding-right: var(--my-gap);
-    height: 40%; /* or any height you want */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .user-display-container > div > video {
-    width: 100%;
-    height: 100%;
-    padding-left: var(--my-gap);
-    padding-right: var(--my-gap);
-    object-fit: cover;
-    display: block;
-  }
-  
-
-
-  /*header*/
-  .header-container{
-    padding-top: var(--my-gap);
-    padding-right: var(--my-gap);
-  }
-
-  .topHeader {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 24px;
-  }
-
-  .topheader-title {
-    font-family: 'Narkis-Semibold', Arial, sans-serif;
-    font-size: 18px;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nispah {
-    position: absolute;
-    left: calc(25% + var(--my-gap)); /* סוף עמודה שנייה מתוך 4 */
-    font-family: 'Narkis-Semibold', Arial, sans-serif;
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-  }
-
-
-  .subline {
-    font-size: 14px;
-    margin-top: 12px;
-    font-family: 'NarkissTam-Regular', Arial, sans-serif;
-  }
-
-  .topHeader {
-    display: flex;
-    gap: 110px;
-  }
-
-  .user-details{
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-  } 
-
-  .user-details p {
-    font-family: 'NarkissTam-Regular', Arial, sans-serif;
-  }
-
-  .video-container {
-    column-count: 4; /* 4 עמודות קבועות */
-    column-gap: var(--my-gap); /* רווח בין עמודות */
-    padding-left: var(--my-gap);
-    padding-right: var(--my-gap)  ;
-    height: calc(100vh - 75px - 20px); /* 75px לכותרת, 20px מרווח תחתון */
-    overflow: hidden;
-  }
-
-  .grid-item {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    break-inside: avoid;
-    overflow: hidden;
-    margin-bottom: var(--my-gap);
-  }
-
-  .grid-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-
-:root {
-  --my-gap:10px;
+.right {
+  right: 1rem;
 }
