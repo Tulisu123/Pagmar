@@ -7,8 +7,7 @@ function App() {
   const [currentIdx, setCurrentIdx] = useState(0)
   const [isPortrait, setIsPortrait] = useState(false)
   const [activeBuffer, setActiveBuffer] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
-
+  const [videoReady, setVideoReady] = useState(false)
   const videoRefs = [useRef(null), useRef(null)]
   const touchStartX = useRef(null)
 
@@ -17,10 +16,8 @@ function App() {
       try {
         const vids = await videosService.getVideos()
         setVideos(vids)
-        setIsLoading(false)
       } catch (err) {
         console.error('Error fetching videos:', err)
-        setIsLoading(false)
       }
     }
     fetchData()
@@ -47,11 +44,13 @@ function App() {
   }
 
   const handleNext = () => {
+    setVideoReady(false)
     setCurrentIdx((prevIdx) => (prevIdx + 1) % videos.length)
     setActiveBuffer((prev) => 1 - prev)
   }
 
   const handlePrev = () => {
+    setVideoReady(false)
     setCurrentIdx((prevIdx) => (prevIdx - 1 + videos.length) % videos.length)
     setActiveBuffer((prev) => 1 - prev)
   }
@@ -69,7 +68,7 @@ function App() {
     }
   }
 
-  if (isLoading) return (
+  if (!videos.length) return (
     <div className="loading-spinner">
       <div className="spinner"></div>
     </div>
@@ -91,6 +90,12 @@ function App() {
         onTouchEnd={handleTouchEnd}
         style={{ display: isPortrait ? 'none' : 'block' }}
       >
+        {!videoReady && (
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+          </div>
+        )}
+
         {[currentVideo, nextVideo].map((video, i) => (
           <video
             key={video.id}
@@ -100,9 +105,12 @@ function App() {
             muted
             playsInline
             preload="auto"
+            onCanPlay={() => setVideoReady(true)}
             onEnded={handleVideoEnd}
             className="fullscreen-video"
-            style={{ display: i === activeBuffer ? 'block' : 'none' }}
+            style={{
+              display: i === activeBuffer && videoReady ? 'block' : 'none'
+            }}
           />
         ))}
 
