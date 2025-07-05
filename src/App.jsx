@@ -9,7 +9,35 @@ function App() {
   const videoRef = useRef(null)
   const touchStartX = useRef(null)
 
+  // 🔁 טריגר לסקרול קטן להעלים toolbar
+  useEffect(() => {
+    const scrollToHideToolbar = () => {
+      window.scrollTo(0, 1)
+    }
 
+    const debounceScroll = () => {
+      clearTimeout(window._scrollTimeout)
+      window._scrollTimeout = setTimeout(scrollToHideToolbar, 100)
+    }
+
+    // הרצה מיידית + בהתחלה
+    debounceScroll()
+
+    // כשמשנים אוריינטציה
+    window.addEventListener('orientationchange', debounceScroll)
+
+    // כשמשנים גודל (כמו כשעוברים full screen)
+    window.addEventListener('resize', debounceScroll)
+
+    // מגע ראשון במסך – גיבוי
+    window.addEventListener('touchstart', debounceScroll, { once: true })
+
+    return () => {
+      window.removeEventListener('orientationchange', debounceScroll)
+      window.removeEventListener('resize', debounceScroll)
+      window.removeEventListener('touchstart', debounceScroll)
+    }
+  }, [])
 
   useEffect(() => {
     async function fetchData() {

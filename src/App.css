@@ -5,31 +5,30 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
+  height: auto;
+  min-height: 101vh; /* חשוב: יותר מ־100vh */
   background-color: white;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .video-container {
-  position: fixed;
-  inset: 0;
+  position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   background-color: white;
+  overflow: hidden;
 }
 
 .fullscreen-video {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
-  margin-bottom: 100px;
   object-fit: cover;
-  background-color: white;
 }
+
 
 /* כפתורי ניווט */
 .nav-btn {
