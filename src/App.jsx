@@ -6,9 +6,8 @@ function App() {
   const [videos, setVideos] = useState([])
   const [currentIdx, setCurrentIdx] = useState(0)
   const [isPortrait, setIsPortrait] = useState(false)
-  const [activeBuffer, setActiveBuffer] = useState(0)
-  const [videoReady, setVideoReady] = useState(false)
-  const videoRefs = [useRef(null), useRef(null)]
+  const [isVideoLoading, setIsVideoLoading] = useState(true)
+  const videoRef = useRef(null)
   const touchStartX = useRef(null)
 
   useEffect(() => {
@@ -39,34 +38,18 @@ function App() {
     }
   }, [])
 
-  const handleVideoEnd = () => {
-    handleNext()
-  }
-
   const handleNext = () => {
-    stopInactiveVideo()
     const nextIdx = (currentIdx + 1) % videos.length
     console.log("▶️ Playing next video:", videos[nextIdx]?.url)
-    setVideoReady(false)
     setCurrentIdx(nextIdx)
-    setActiveBuffer(prev => 1 - prev)
+    setIsVideoLoading(true)
   }
 
   const handlePrev = () => {
-    stopInactiveVideo()
     const prevIdx = (currentIdx - 1 + videos.length) % videos.length
     console.log("▶️ Playing previous video:", videos[prevIdx]?.url)
-    setVideoReady(false)
     setCurrentIdx(prevIdx)
-    setActiveBuffer(prev => 1 - prev)
-  }
-
-  const stopInactiveVideo = () => {
-    const inactiveRef = videoRefs[1 - activeBuffer]
-    if (inactiveRef.current) {
-      inactiveRef.current.pause()
-      inactiveRef.current.currentTime = 0
-    }
+    setIsVideoLoading(true)
   }
 
   const handleTouchStart = (e) => {
@@ -91,7 +74,6 @@ function App() {
   }
 
   const currentVideo = videos[currentIdx]
-  const nextVideo = videos[(currentIdx + 1) % videos.length]
 
   return (
     <>
@@ -100,27 +82,33 @@ function App() {
           <p>Please rotate your device to landscape mode for the best experience.</p>
         </div>
       )}
+
+      {isVideoLoading && (
+        <div className="loading-spinner">
+          <div className="spinner"></div>
+        </div>
+      )}
+
       <div
         className="video-container"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         style={{ display: isPortrait ? 'none' : 'block' }}
       >
-        {[currentVideo, nextVideo].map((video, i) => (
-          <video
-            key={`${video.id}-${i}-${currentIdx}`}
-            ref={videoRefs[i]}
-            src={video.url}
-            autoPlay={i === activeBuffer}
-            muted
-            playsInline
-            preload="auto"
-            onCanPlay={() => setVideoReady(true)}
-            onEnded={handleVideoEnd}
-            className="fullscreen-video"
-            style={{ display: i === activeBuffer && videoReady ? 'block' : 'none' }}
-          />
-        ))}
+        <video
+          key={currentVideo.id}
+          ref={videoRef}
+          src={currentVideo.url}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          onLoadStart={() => setIsVideoLoading(true)}
+          onCanPlay={() => setIsVideoLoading(false)}
+          onPlaying={() => setIsVideoLoading(false)}
+          onEnded={handleNext}
+          className="fullscreen-video"
+        />
 
         <button className="nav-btn left" onClick={handlePrev}>←</button>
         <button className="nav-btn right" onClick={handleNext}>→</button>
