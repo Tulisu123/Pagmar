@@ -1,44 +1,35 @@
 * {
   box-sizing: border-box;
 }
+
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   background-color: white;
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-  touch-action: none;
-  position: relative;
-  scroll-behavior: smooth;
-}
-
-body::after {
-  content: '';
-  display: block;
-  height: 1px; /* יכריח את ספארי לזהות scroll */
 }
 
 .video-container {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100dvh; /* שימוש ב־100dvh לבעיות גובה אמיתי */
+  height: 100vh;
   overflow: hidden;
   background-color: white;
 }
 
 .fullscreen-video {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100vw;
-  height: 100dvh; /* זה הפתרון המדויק ל־Safari */
+  height: 100vh;
+  margin-bottom: 100px;
   object-fit: cover;
   background-color: white;
 }
-
 
 /* כפתורי ניווט */
 .nav-btn {

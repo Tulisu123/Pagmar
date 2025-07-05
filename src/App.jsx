@@ -9,27 +9,6 @@ function App() {
   const videoRef = useRef(null)
   const touchStartX = useRef(null)
 
-  
-  useEffect(() => {
-  const triggerScroll = () => {
-    document.body.style.overflow = 'auto'
-    window.scrollTo(0, 1) // מעלים את הטולבאר בספארי
-    setTimeout(() => {
-      document.body.style.overflow = 'hidden'
-    }, 100)
-  }
-
-  // לטרגר בתחילת הרינדור
-  const timeoutId = setTimeout(triggerScroll, 150)
-
-  // וגם בנגיעה ראשונה
-  window.addEventListener('touchstart', triggerScroll, { once: true })
-
-  return () => {
-    clearTimeout(timeoutId)
-    window.removeEventListener('touchstart', triggerScroll)
-  }
-}, [])
 
 
   useEffect(() => {
