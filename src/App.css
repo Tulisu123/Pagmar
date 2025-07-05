@@ -41,11 +41,15 @@ html, body {
 }
 
 .fullscreen-video {
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100vw;
+  min-height: 100vh;
   object-fit: cover;
   object-position: center center;
-  display: block;
+  background-color: black;
 }
 
 /* ניווט עם כפתורים */
