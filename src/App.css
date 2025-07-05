@@ -1,19 +1,29 @@
-body, html {
+* {
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  position: fixed;
-  background-color: white;
+  background-color: black;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+  touch-action: none;
 }
 
+
 .video-container {
-  position: relative;
+  position: fixed;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background-color: black;
 }
+
 
 .video-wrapper {
   width: 100%;
@@ -31,14 +41,11 @@ body, html {
 }
 
 .fullscreen-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  object-position: center;
-  z-index: 0;
+  object-position: center center;
+  display: block;
 }
 
 /* ניווט עם כפתורים */
