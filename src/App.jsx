@@ -77,7 +77,7 @@ function App() {
     <>
       {isPortrait && (
         <div className="orientation-warning">
-          אנא סובב את הטלפון למצב לרוחב (landscape) לצפייה מיטבית 📱↔️
+          <p>Please rotate your device to landscape mode for the best experience.</p>
         </div>
       )}
       <div
@@ -92,7 +92,7 @@ function App() {
           autoPlay
           muted
           onEnded={handleVideoEnd}
-          playsInline
+          playsInlineכ
           preload="auto"
           className="fullscreen-video"
         />
