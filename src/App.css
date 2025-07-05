@@ -10,17 +10,20 @@ html, body {
   overflow: hidden;
   background-color: black;
   overscroll-behavior: none;
-  -webkit-overflow-scrolling: auto;
   touch-action: none;
+  -webkit-overflow-scrolling: auto;
 }
+
 body {
-  margin: 0;
-  padding: 0;
-  background: black;
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
+  background-color: black;
+}
+
+/* נבטל safe-area במובייל בלבד */
+@media (max-width: 768px) {
+  body {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 .video-container {
@@ -31,7 +34,6 @@ body {
   overflow: hidden;
   background-color: black;
 }
-
 
 .video-wrapper {
   width: 100%;
@@ -50,10 +52,10 @@ body {
 
 .fullscreen-video {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100dvh; /* חשוב: 100dvh מתחשב בגובה האמיתי */
+  top: calc(-1 * env(safe-area-inset-top, 0px));
+  left: calc(-1 * env(safe-area-inset-left, 0px));
+  width: calc(100vw + env(safe-area-inset-left, 0px) + env(safe-area-inset-right, 0px));
+  height: calc(100vh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
   object-fit: cover;
   object-position: center;
   background-color: black;
@@ -86,8 +88,6 @@ body {
 .right {
   right: 1rem;
 }
-
-
 
 .orientation-warning {
   position: fixed;
