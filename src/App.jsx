@@ -9,33 +9,33 @@ function App() {
   const videoRef = useRef(null)
   const touchStartX = useRef(null)
 
-  // 🔁 טריגר לסקרול קטן להעלים toolbar
+  // הורדת toolbar בספארי
   useEffect(() => {
     const scrollToHideToolbar = () => {
+      const fakeDiv = document.createElement("div")
+      fakeDiv.style.height = "150vh"
+      document.body.appendChild(fakeDiv)
       window.scrollTo(0, 1)
+      setTimeout(() => {
+        document.body.removeChild(fakeDiv)
+      }, 1000)
     }
 
-    const debounceScroll = () => {
-      clearTimeout(window._scrollTimeout)
-      window._scrollTimeout = setTimeout(scrollToHideToolbar, 100)
+    const tryScroll = () => {
+      if (window.innerWidth > window.innerHeight) {
+        scrollToHideToolbar()
+      }
     }
 
-    // הרצה מיידית + בהתחלה
-    debounceScroll()
-
-    // כשמשנים אוריינטציה
-    window.addEventListener('orientationchange', debounceScroll)
-
-    // כשמשנים גודל (כמו כשעוברים full screen)
-    window.addEventListener('resize', debounceScroll)
-
-    // מגע ראשון במסך – גיבוי
-    window.addEventListener('touchstart', debounceScroll, { once: true })
+    tryScroll()
+    window.addEventListener("orientationchange", tryScroll)
+    window.addEventListener("resize", tryScroll)
+    window.addEventListener("touchstart", tryScroll, { once: true })
 
     return () => {
-      window.removeEventListener('orientationchange', debounceScroll)
-      window.removeEventListener('resize', debounceScroll)
-      window.removeEventListener('touchstart', debounceScroll)
+      window.removeEventListener("orientationchange", tryScroll)
+      window.removeEventListener("resize", tryScroll)
+      window.removeEventListener("touchstart", tryScroll)
     }
   }, [])
 
