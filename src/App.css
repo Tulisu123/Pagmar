@@ -30,19 +30,15 @@ body, html {
 }
 
 .fullscreen-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: auto;
-  height: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  object-position: center center;
-  background-color: black;
+  object-position: center;
+  z-index: -1;
 }
-
 
 /* ניווט עם כפתורים */
 .nav-btn {
