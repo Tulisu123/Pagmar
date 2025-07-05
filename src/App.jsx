@@ -92,7 +92,7 @@ function App() {
           autoPlay
           muted
           onEnded={handleVideoEnd}
-          playsInlineכ
+          playsInline
           preload="auto"
           className="fullscreen-video"
         />
