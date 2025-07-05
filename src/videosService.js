@@ -2,15 +2,21 @@ export const videosService = {
   getVideos,
 }
 
+function isMobileDevice() {
+  return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
+}
+
 async function getVideos() {
   const NUMBER_OF_VIDEOS = 12
   const BASE_URL = 'https://pagmarpullzone.b-cdn.net'
+  const isMobile = isMobileDevice()
 
   const videoList = []
   for (let i = 1; i <= NUMBER_OF_VIDEOS; i++) {
+    const prefix = isMobile ? 'compressed_again_' : 'compressed_'
     videoList.push({
       id: i,
-      url: `${BASE_URL}/compressed_again_${i}.mp4?v`, 
+      url: `${BASE_URL}/${prefix}${i}.mp4`,
     })
   }
 
