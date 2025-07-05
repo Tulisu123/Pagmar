@@ -29,10 +29,13 @@ function App() {
     }
 
     checkOrientation()
+
     window.addEventListener("resize", checkOrientation)
+    window.addEventListener("orientationchange", checkOrientation)
 
     return () => {
       window.removeEventListener("resize", checkOrientation)
+      window.removeEventListener("orientationchange", checkOrientation)
     }
   }, [])
 
