@@ -7,6 +7,8 @@ function App() {
   const [currentIdx, setCurrentIdx] = useState(0)
   const [isPortrait, setIsPortrait] = useState(false)
   const [activeBuffer, setActiveBuffer] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+
   const videoRefs = [useRef(null), useRef(null)]
   const touchStartX = useRef(null)
 
@@ -15,8 +17,10 @@ function App() {
       try {
         const vids = await videosService.getVideos()
         setVideos(vids)
+        setIsLoading(false)
       } catch (err) {
         console.error('Error fetching videos:', err)
+        setIsLoading(false)
       }
     }
     fetchData()
@@ -65,9 +69,11 @@ function App() {
     }
   }
 
-  if (!videos.length) {
-    return <div style={{ color: 'white' }}>Loading video...</div>
-  }
+  if (isLoading) return (
+    <div className="loading-spinner">
+      <div className="spinner"></div>
+    </div>
+  )
 
   const currentVideo = videos[currentIdx]
   const nextVideo = videos[(currentIdx + 1) % videos.length]
@@ -85,7 +91,6 @@ function App() {
         onTouchEnd={handleTouchEnd}
         style={{ display: isPortrait ? 'none' : 'block' }}
       >
-        {/* Double buffer: two video elements */}
         {[currentVideo, nextVideo].map((video, i) => (
           <video
             key={video.id}
