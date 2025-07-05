@@ -25,7 +25,7 @@ async function getVideos() {
   for (let i = 1; i <= NUMBER_OF_VIDEOS; i++) {
     videoList.push({
       id: i,
-      url: `${BASE_URL}/${i}.mp4`,
+      url: `${BASE_URL}/compressed_${i}.mp4`,
     })
   }
 
