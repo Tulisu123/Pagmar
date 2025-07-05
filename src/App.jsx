@@ -6,9 +6,9 @@ function App() {
   const [videos, setVideos] = useState([])
   const [currentIdx, setCurrentIdx] = useState(0)
   const [isPortrait, setIsPortrait] = useState(false)
-  const videoRef = useRef()
+  const [activeBuffer, setActiveBuffer] = useState(0)
+  const videoRefs = [useRef(null), useRef(null)]
   const touchStartX = useRef(null)
-  const touchEndX = useRef(null)
 
   useEffect(() => {
     async function fetchData() {
@@ -29,7 +29,6 @@ function App() {
     }
 
     checkOrientation()
-
     window.addEventListener("resize", checkOrientation)
     window.addEventListener("orientationchange", checkOrientation)
 
@@ -40,15 +39,17 @@ function App() {
   }, [])
 
   const handleVideoEnd = () => {
-    setCurrentIdx((prevIdx) => (prevIdx + 1) % videos.length)
+    handleNext()
   }
 
   const handleNext = () => {
     setCurrentIdx((prevIdx) => (prevIdx + 1) % videos.length)
+    setActiveBuffer((prev) => 1 - prev)
   }
 
   const handlePrev = () => {
     setCurrentIdx((prevIdx) => (prevIdx - 1 + videos.length) % videos.length)
+    setActiveBuffer((prev) => 1 - prev)
   }
 
   const handleTouchStart = (e) => {
@@ -56,26 +57,20 @@ function App() {
   }
 
   const handleTouchEnd = (e) => {
-    touchEndX.current = e.changedTouches[0].clientX
-    const diff = touchStartX.current - touchEndX.current
-
+    const touchEndX = e.changedTouches[0].clientX
+    const diff = touchStartX.current - touchEndX
     if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        handleNext()
-      } else {
-        handlePrev()
-      }
+      if (diff > 0) handleNext()
+      else handlePrev()
     }
   }
 
-  if (!videos.length) return (
-    <div style={{ color: 'white' }}>
-      Loading video...
-    </div>
-  )
+  if (!videos.length) {
+    return <div style={{ color: 'white' }}>Loading video...</div>
+  }
 
-  const videoSrc = videos[currentIdx]?.url
-  const nextVideoSrc = videos[(currentIdx + 1) % videos.length]?.url
+  const currentVideo = videos[currentIdx]
+  const nextVideo = videos[(currentIdx + 1) % videos.length]
 
   return (
     <>
@@ -90,24 +85,21 @@ function App() {
         onTouchEnd={handleTouchEnd}
         style={{ display: isPortrait ? 'none' : 'block' }}
       >
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          autoPlay
-          muted
-          onEnded={handleVideoEnd}
-          playsInline
-          preload="auto"
-          className="fullscreen-video"
-        />
-
-        {/* Preload next video invisibly */}
-        <video
-          src={nextVideoSrc}
-          preload="auto"
-          muted
-          style={{ display: 'none' }}
-        />
+        {/* Double buffer: two video elements */}
+        {[currentVideo, nextVideo].map((video, i) => (
+          <video
+            key={video.id}
+            ref={videoRefs[i]}
+            src={video.url}
+            autoPlay={i === activeBuffer}
+            muted
+            playsInline
+            preload="auto"
+            onEnded={handleVideoEnd}
+            className="fullscreen-video"
+            style={{ display: i === activeBuffer ? 'block' : 'none' }}
+          />
+        ))}
 
         <button className="nav-btn left" onClick={handlePrev}>←</button>
         <button className="nav-btn right" onClick={handleNext}>→</button>
