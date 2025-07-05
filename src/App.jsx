@@ -5,6 +5,7 @@ import { videosService } from './videosService'
 function App() {
   const [videos, setVideos] = useState([])
   const [currentIdx, setCurrentIdx] = useState(0)
+  const [isPortrait, setIsPortrait] = useState(false)
   const videoRef = useRef()
   const touchStartX = useRef(null)
   const touchEndX = useRef(null)
@@ -19,6 +20,20 @@ function App() {
       }
     }
     fetchData()
+  }, [])
+
+  useEffect(() => {
+    const checkOrientation = () => {
+      const portrait = window.matchMedia("(orientation: portrait)").matches
+      setIsPortrait(portrait)
+    }
+
+    checkOrientation()
+    window.addEventListener("resize", checkOrientation)
+
+    return () => {
+      window.removeEventListener("resize", checkOrientation)
+    }
   }, [])
 
   const handleVideoEnd = () => {
@@ -43,9 +58,9 @@ function App() {
 
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
-        handleNext() // swipe left
+        handleNext()
       } else {
-        handlePrev() // swipe right
+        handlePrev()
       }
     }
   }
@@ -59,25 +74,33 @@ function App() {
   const videoSrc = videos[currentIdx]?.url
 
   return (
-    <div
-      className="video-container"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
-      <video
-        ref={videoRef}
-        src={videoSrc}
-        autoPlay
-        muted
-        onEnded={handleVideoEnd}
-        playsInline
-        preload="auto"
-        className="fullscreen-video"
-      />
+    <>
+      {isPortrait && (
+        <div className="orientation-warning">
+          אנא סובב את הטלפון למצב לרוחב (landscape) לצפייה מיטבית 📱↔️
+        </div>
+      )}
+      <div
+        className="video-container"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        style={{ display: isPortrait ? 'none' : 'block' }}
+      >
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          autoPlay
+          muted
+          onEnded={handleVideoEnd}
+          playsInline
+          preload="auto"
+          className="fullscreen-video"
+        />
 
-      <button className="nav-btn left" onClick={handlePrev}>←</button>
-      <button className="nav-btn right" onClick={handleNext}>→</button>
-    </div>
+        <button className="nav-btn left" onClick={handlePrev}>←</button>
+        <button className="nav-btn right" onClick={handleNext}>→</button>
+      </div>
+    </>
   )
 }
 
