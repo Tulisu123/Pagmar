@@ -104,16 +104,10 @@ function App() {
 
   return (
     <>
-      {isPortrait && (
-        <div className="orientation-warning">
-          <p>Please rotate your device to landscape mode for the best experience.</p>
-        </div>
-      )}
       <div
         className="video-container"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        style={{ display: isPortrait ? 'none' : 'block' }}
       >
         <video
           key={currentVideo.id}
@@ -124,11 +118,23 @@ function App() {
           playsInline
           preload="auto"
           onEnded={handleNext}
-          className="fullscreen-video"
+          className={`fullscreen-video ${isPortrait ? 'contain-mode' : ''}`}
         />
 
-        <button className="nav-btn left" onClick={handlePrev}>←</button>
-        <button className="nav-btn right" onClick={handleNext}>→</button>
+        {/* כפתורי ניווט - רק באופקי */}
+        {!isPortrait && (
+          <>
+            <button className="nav-btn left" onClick={handlePrev}>←</button>
+            <button className="nav-btn right" onClick={handleNext}>→</button>
+          </>
+        )}
+
+        {/* שכבת אזהרת סיבוב - רק בורטיקלי */}
+        {isPortrait && (
+          <div className="orientation-overlay">
+            <p>Please rotate your device to landscape mode for the best experience.</p>
+          </div>
+        )}
       </div>
     </>
   )

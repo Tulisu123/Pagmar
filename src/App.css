@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overscroll-behavior: none;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -10,6 +14,8 @@ html, body {
   background-color: white;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  -webkit-text-size-adjust: 100%;
+
 }
 
 .video-container {
@@ -30,6 +36,10 @@ html, body {
   height: 100vh;
   object-fit: cover;
   background-color: white;
+}
+
+.fullscreen-video.contain-mode {
+  object-fit: contain;
 }
 
 /* כפתורי ניווט */
@@ -75,6 +85,32 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-size: 1.5rem;
   z-index: 10000;
+}
+
+.orientation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.75);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  z-index: 10000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.orientation-overlay p {
+  max-width: 90%;
+  line-height: 1.6;
+  font-weight: 500;
+  border-radius: 12px;
 }
 
 .orientation-warning p {
