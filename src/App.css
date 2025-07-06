@@ -1,24 +1,33 @@
+/* בסיס אחיד */
 * {
   box-sizing: border-box;
-}
-
-body {
-  overscroll-behavior: none;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  min-height: 101vh; /* מאפשר Scroll אמיתי */
-  width: 100%;
   background-color: white;
-  min-height: 200vh; /* כדי לאפשר scroll אמיתי */
+  width: 100%;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   -webkit-text-size-adjust: 100%;
-
 }
 
+/* גלילה רק במובייל */
+@media (max-width: 768px) {
+  html, body {
+    min-height: 120vh; /* מאפשר scroll להורדת ה-toolbar */
+  }
+}
+
+@media (min-width: 769px) {
+  html, body {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+/* וידאו */
 .video-container {
   position: absolute;
   top: 0;
@@ -44,82 +53,62 @@ html, body {
   object-fit: contain;
 }
 
-/* כפתורי ניווט */
+/* ניווט */
 .nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.4);
+  background: none;
   border: none;
   color: black;
-  font-size: 3rem;
-  padding: 0.5rem 1rem;
+  font-size: 2.5rem;
+  padding: 0.2rem 0.5rem;
   cursor: pointer;
   z-index: 10;
-  transition: background-color 0.3s ease;
-}
-
-.nav-btn:hover {
-  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .left {
-  left: 1rem;
+  left: 0.5rem;
 }
 
 .right {
-  right: 1rem;
+  right: 0.5rem;
 }
 
 /* אזהרת סיבוב מסך */
-.orientation-warning {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: white;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.5rem;
-  z-index: 10000;
-}
-
+.orientation-warning,
 .orientation-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.75);
-  color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   z-index: 10000;
   padding: 1rem;
   box-sizing: border-box;
 }
 
+.orientation-warning {
+  background: white;
+  color: #333;
+}
+
+.orientation-overlay {
+  background: rgba(255, 255, 255, 0.75);
+  color: #333;
+}
+
+.orientation-warning p,
 .orientation-overlay p {
   max-width: 90%;
   line-height: 1.6;
   font-weight: 500;
-  border-radius: 12px;
-}
-
-.orientation-warning p {
-  max-width: 80%;
-  line-height: 1.6;
-  font-weight: 500;
-  padding: 1rem 1.5rem;
   border-radius: 12px;
 }
 
