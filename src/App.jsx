@@ -132,7 +132,7 @@ function App() {
         {/* שכבת אזהרת סיבוב - רק בורטיקלי */}
         {isPortrait && (
           <div className="orientation-overlay">
-            <p>Please rotate your device to landscape mode for the best experience.</p>
+            <p>Please rotate your device to landscape mode.</p>
           </div>
         )}
       </div>

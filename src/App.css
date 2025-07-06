@@ -12,6 +12,7 @@ html, body {
   min-height: 101vh; /* מאפשר Scroll אמיתי */
   width: 100%;
   background-color: white;
+  min-height: 200vh; /* כדי לאפשר scroll אמיתי */
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   -webkit-text-size-adjust: 100%;
@@ -19,8 +20,9 @@ html, body {
 }
 
 .video-container {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
