@@ -16,7 +16,7 @@ html, body {
 /* גלילה רק במובייל */
 @media (max-width: 768px) {
   html, body {
-    min-height: 150vh; /* מאפשר scroll להורדת ה-toolbar */
+    min-height: 102vh; /* מאפשר scroll להורדת ה-toolbar */
   }
 }
 
