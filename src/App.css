@@ -40,17 +40,65 @@ html, body {
 
 .fullscreen-video {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
   background-color: white;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 1;
 }
 
 .fullscreen-video.contain-mode {
   object-fit: contain;
+}
+
+/* אנימציות מעבר */
+.swipe-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.swipe-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.swipe-in-left {
+  transform: translateX(-100%);
+  animation: slideInFromLeft 0.4s forwards;
+  z-index: 2;
+}
+
+.swipe-in-right {
+  transform: translateX(100%);
+  animation: slideInFromRight 0.4s forwards;
+  z-index: 2;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 }
 
 /* ניווט */

@@ -5,7 +5,11 @@ import { videosService } from './videosService'
 function App() {
   const [videos, setVideos] = useState([])
   const [currentIdx, setCurrentIdx] = useState(0)
+  const [nextIdx, setNextIdx] = useState(null)
   const [isPortrait, setIsPortrait] = useState(false)
+  const [animationDirection, setAnimationDirection] = useState(null)
+  const [isAnimating, setIsAnimating] = useState(false)
+
   const videoRef = useRef(null)
   const touchStartX = useRef(null)
 
@@ -37,15 +41,28 @@ function App() {
     }
   }, [])
 
-  const handleNext = () => {
-    const nextIdx = (currentIdx + 1) % videos.length
-    setCurrentIdx(nextIdx)
+  const handleDirection = (direction) => {
+    if (isAnimating || videos.length < 2) return
+
+    const newIndex =
+      direction === 'left'
+        ? (currentIdx + 1) % videos.length
+        : (currentIdx - 1 + videos.length) % videos.length
+
+    setNextIdx(newIndex)
+    setAnimationDirection(direction)
+    setIsAnimating(true)
+
+    setTimeout(() => {
+      setCurrentIdx(newIndex)
+      setNextIdx(null)
+      setAnimationDirection(null)
+      setIsAnimating(false)
+    }, 400) // match transition duration
   }
 
-  const handlePrev = () => {
-    const prevIdx = (currentIdx - 1 + videos.length) % videos.length
-    setCurrentIdx(prevIdx)
-  }
+  const handleNext = () => handleDirection('left')
+  const handlePrev = () => handleDirection('right')
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.changedTouches[0].clientX
@@ -68,40 +85,51 @@ function App() {
   }
 
   const currentVideo = videos[currentIdx]
+  const nextVideo = nextIdx !== null ? videos[nextIdx] : null
 
   return (
-    <>
-      <div
-        className="video-container"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+    <div
+      className="video-container"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      <video
+        key={currentVideo.id}
+        ref={videoRef}
+        src={currentVideo.url}
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+        onEnded={handleNext}
+        className={`fullscreen-video ${animationDirection === 'left' ? 'swipe-out-left' : animationDirection === 'right' ? 'swipe-out-right' : ''}`}
+      />
+
+      {nextVideo && (
         <video
-          key={currentVideo.id}
-          ref={videoRef}
-          src={currentVideo.url}
+          key={nextVideo.id}
+          src={nextVideo.url}
           autoPlay
           muted
           playsInline
           preload="auto"
-          onEnded={handleNext}
-          className={`fullscreen-video ${isPortrait ? 'contain-mode' : ''}`}
+          className={`fullscreen-video ${animationDirection === 'left' ? 'swipe-in-right' : 'swipe-in-left'}`}
         />
+      )}
 
-        {!isPortrait && (
-          <>
-            <button className="nav-btn left" onClick={handlePrev}>‹</button>
-            <button className="nav-btn right" onClick={handleNext}>›</button>
-          </>
-        )}
+      {!isPortrait && (
+        <>
+          <button className="nav-btn left" onClick={handlePrev}>‹</button>
+          <button className="nav-btn right" onClick={handleNext}>›</button>
+        </>
+      )}
 
-        {isPortrait && (
-          <div className="orientation-overlay">
-            <p>Please rotate your device to landscape mode.</p>
-          </div>
-        )}
-      </div>
-    </>
+      {isPortrait && (
+        <div className="orientation-overlay">
+          <p>Please rotate your device to landscape mode.</p>
+        </div>
+      )}
+    </div>
   )
 }
 
