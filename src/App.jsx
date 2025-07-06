@@ -102,7 +102,10 @@ function App() {
         playsInline
         preload="auto"
         onEnded={handleNext}
-        className={`fullscreen-video ${animationDirection === 'left' ? 'swipe-out-left' : animationDirection === 'right' ? 'swipe-out-right' : ''}`}
+        className={`fullscreen-video 
+        ${animationDirection === 'left' ? 'swipe-out-left' : animationDirection === 'right' ? 'swipe-out-right' : ''} 
+        ${isPortrait ? 'contain-mode' : ''}
+        `}
       />
 
       {nextVideo && (
@@ -113,7 +116,10 @@ function App() {
           muted
           playsInline
           preload="auto"
-          className={`fullscreen-video ${animationDirection === 'left' ? 'swipe-in-right' : 'swipe-in-left'}`}
+          className={`fullscreen-video 
+          ${animationDirection === 'left' ? 'swipe-in-right' : 'swipe-in-left'} 
+          ${isPortrait ? 'contain-mode' : ''}
+        `}
         />
       )}
 
