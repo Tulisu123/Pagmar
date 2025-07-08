@@ -58,7 +58,7 @@ function App() {
       setNextIdx(null)
       setAnimationDirection(null)
       setIsAnimating(false)
-    }, 400) // match transition duration
+    }, 600) // match transition duration
   }
 
   const handleNext = () => handleDirection('left')
@@ -132,9 +132,9 @@ function App() {
 
       {isPortrait && (
         <div className="orientation-overlay">
-          <p>
-            Please rotate your device to landscape mode.<br/>
-            [ Unlock orientation button ]
+          <p className="orientation-text">
+            <div className="tight-line">Please rotate your device to landscape mode.</div>
+            <div className="normal-line">[ Unlock orientation button ]</div>
           </p>
         </div>
       )}
