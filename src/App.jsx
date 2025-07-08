@@ -132,7 +132,10 @@ function App() {
 
       {isPortrait && (
         <div className="orientation-overlay">
-          <p>Please rotate your device to landscape mode.</p>
+          <p>
+            Please rotate your device to landscape mode.<br/>
+            [ Unlock orientation button ]
+          </p>
         </div>
       )}
     </div>

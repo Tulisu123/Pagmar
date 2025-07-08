@@ -143,6 +143,11 @@ html, body {
   box-sizing: border-box;
 }
 
+.orientation-overlay > p{
+  font-family: 'NarkissTam', sans-serif;
+  font-size: 1.4rem;
+}
+
 .orientation-warning {
   background: white;
   color: #333;
