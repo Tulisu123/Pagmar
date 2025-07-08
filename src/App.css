@@ -103,6 +103,7 @@ html, body {
 
 /* ניווט */
 .nav-btn {
+  padding: 0;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -110,7 +111,6 @@ html, body {
   border: none;
   color: black;
   font-size: 1.875rem;
-  padding: 0.2rem 0.5rem;
   cursor: pointer;
   z-index: 10;
   font-family: 'NarkissTam', sans-serif;
@@ -140,7 +140,6 @@ html, body {
   font-family: 'Roboto', sans-serif;
   font-size: 1.3rem;
   z-index: 10000;
-  padding: 1rem;
   box-sizing: border-box;
 }
 
