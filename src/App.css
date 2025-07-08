@@ -109,10 +109,12 @@ html, body {
   background: none;
   border: none;
   color: black;
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   padding: 0.2rem 0.5rem;
   cursor: pointer;
   z-index: 10;
+  font-family: 'NarkissTam', sans-serif;
+
 }
 
 .left {
@@ -182,4 +184,11 @@ html, body {
   to {
     transform: rotate(360deg);
   }
+}
+
+@font-face {
+  font-family: 'NarkissTam';
+  src: url('/fonts/NarkissTam-Regular-TRIAL.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
