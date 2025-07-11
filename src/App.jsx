@@ -82,7 +82,27 @@ function App() {
     }
   }, [])
 
-  
+
+  const handleDirection = (direction) => {
+  if (isAnimating || videos.length < 2) return
+
+  const newIndex =
+    direction === 'left'
+      ? (currentIdx + 1) % videos.length
+      : (currentIdx - 1 + videos.length) % videos.length
+
+  setNextIdx(newIndex)
+  setAnimationDirection(direction)
+  setIsAnimating(true)
+
+  setTimeout(() => {
+    setCurrentIdx(newIndex)
+    setNextIdx(null)
+    setAnimationDirection(null)
+    setIsAnimating(false)
+  }, 600) // תואם לזמן האנימציה ב־CSS
+}
+
   const handleNext = () => handleDirection('left')
   const handlePrev = () => handleDirection('right')
 
