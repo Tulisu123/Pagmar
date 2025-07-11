@@ -41,6 +41,33 @@ function App() {
     }
   }, [])
 
+  // useEffect שמדמה גלילה כמו תנועת אצבע
+  useEffect(() => {
+    const simulateFingerScroll = () => {
+      const isMobile = window.innerWidth < 769
+      const isLandscape = window.matchMedia("(orientation: landscape)").matches
+
+      if (!isMobile || !isLandscape) return
+
+      // Scroll קטן מדמה swipe של אצבע
+      window.scrollBy(0, 2)
+      setTimeout(() => {
+        window.scrollBy(0, -2)
+      }, 50)
+    }
+
+    // הפעלת הגלילה בטעינה
+    setTimeout(simulateFingerScroll, 400)
+
+    // הפעלת הגלילה גם אחרי סיבוב מסך
+    const onRotate = () => setTimeout(simulateFingerScroll, 400)
+    window.addEventListener("orientationchange", onRotate)
+
+    return () => {
+      window.removeEventListener("orientationchange", onRotate)
+    }
+  }, [])
+
   const handleDirection = (direction) => {
     if (isAnimating || videos.length < 2) return
 
