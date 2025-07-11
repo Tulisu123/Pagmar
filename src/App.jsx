@@ -42,25 +42,39 @@ function App() {
   }, [])
 
   // useEffect שמדמה גלילה כמו תנועת אצבע
+    // useEffect שמגלגל למסך כדי למרכז את הווידאו ולהסתיר toolbar
   useEffect(() => {
-    const simulateFingerScroll = () => {
+    const scrollToVideoCenter = () => {
       const isMobile = window.innerWidth < 769
       const isLandscape = window.matchMedia("(orientation: landscape)").matches
+      const video = videoRef.current
 
-      if (!isMobile || !isLandscape) return
+      if (!isMobile || !isLandscape || !video) return
 
-      // Scroll קטן מדמה swipe של אצבע
-      window.scrollBy(0, 2)
-      setTimeout(() => {
-        window.scrollBy(0, -2)
-      }, 50)
+      const waitUntilLoaded = () => {
+        const vh = window.innerHeight
+        const videoHeight = video.clientHeight || 0
+
+        if (videoHeight < 10) {
+          // נסה שוב עוד 100ms אם הווידאו עדיין לא נטען
+          setTimeout(waitUntilLoaded, 100)
+          return
+        }
+
+        const videoTop = video.getBoundingClientRect().top + window.scrollY
+        const offset = videoTop - (vh / 2) + (videoHeight / 2)
+
+        window.scrollTo({ top: offset, behavior: 'smooth' })
+      }
+
+      waitUntilLoaded()
     }
 
-    // הפעלת הגלילה בטעינה
-    setTimeout(simulateFingerScroll, 400)
+    // ניסיון ראשון
+    setTimeout(scrollToVideoCenter, 400)
 
     // הפעלת הגלילה גם אחרי סיבוב מסך
-    const onRotate = () => setTimeout(simulateFingerScroll, 400)
+    const onRotate = () => setTimeout(scrollToVideoCenter, 400)
     window.addEventListener("orientationchange", onRotate)
 
     return () => {
@@ -68,26 +82,7 @@ function App() {
     }
   }, [])
 
-  const handleDirection = (direction) => {
-    if (isAnimating || videos.length < 2) return
-
-    const newIndex =
-      direction === 'left'
-        ? (currentIdx + 1) % videos.length
-        : (currentIdx - 1 + videos.length) % videos.length
-
-    setNextIdx(newIndex)
-    setAnimationDirection(direction)
-    setIsAnimating(true)
-
-    setTimeout(() => {
-      setCurrentIdx(newIndex)
-      setNextIdx(null)
-      setAnimationDirection(null)
-      setIsAnimating(false)
-    }, 600) // match transition duration
-  }
-
+  
   const handleNext = () => handleDirection('left')
   const handlePrev = () => handleDirection('right')
 
